@@ -1,0 +1,36 @@
+{%extends 'base.html' %}
+{%load static%}
+{%block title%}
+{{item.name}}
+{% endblock%}
+{%block content%}
+<div class="w-full rows-auto md:gap-6 md: flex sm: flex ">
+
+    <div class=" w-full p-6 bg-gray-100  md:rounded-xl md: p-6 sm:rounded-xl  sm: p-6">
+        <div class=" p-6 mt-6w-full rounded-xl ">
+        <h1 class="mb-6 text-3xl ">{{task.title}}</h1>
+
+        <h2 class=" mt-6  text-gray-500 text-xl"><strong>Status:</strong>{{task.status}}</h2>
+        <h2 class=" mt-6  text-gray-500 text-xl"><strong> Due Date:</strong>{{task.due_date}}</h2>
+        <h2 class=" mt-6  text-gray-500 text-xl"><strong> Priority:</strong>{%if task.priority == 1%}High{%elif task.priority == 2%}Medium{%else%}Low{%endif%}</h2>
+        {% if task.description %}
+         <h2 class="mt-6  text-gray-500 text-xl"><strong>Description:</strong>{{task.description}}</h2>
+        {% endif %}
+          <div class=" mt-6  rounded-xl py-6 px-6">
+              <a href="{%url 'edit' task.id%}" class="inline-block px-6 py-3 text-lg font-semibold bg-green-500 hover:bg-green-700 text-white rounded-xl">
+            Edit
+        </a>
+              <a href="{% url 'delete' task.id %}" class="inline-block px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">
+            delete
+        </a>
+
+
+
+          </div>
+            </div>
+   </div>
+
+
+</div>
+
+{% endblock %}

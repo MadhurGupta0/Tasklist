@@ -1,0 +1,70 @@
+{%extends 'base.html' %}
+{% load static %}
+{%block title%}
+Items
+{% endblock%}
+{%block content%}
+<div class =" w-full px-auto lg:grid lg: grid-cols-3  gap-6 rounded-xl">
+ <div class=" col-span-1 py-4 px-4 ">
+ <h1 class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl  ">Search</h1>
+ </div>
+        <div class="col-span-2 ">
+        <div class="rounded-xl">
+            <div>
+
+
+                       <div class="p-6 bg-white rounded-b-xl">
+                           <p class=" w-1/4 text-center inline-block text-2xl">Title</p>
+                           <p class="  w-1/4 text-center inline-block text-gray-500">Due Date</p>
+                           <p class="  w-1/4 text-center inline-block text-gray-500">Status</p>
+                       </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class =" px-auto lg:grid lg: grid-cols-3  gap-6 rounded-xl">
+
+    <div class="col-span-1 py-4 px-4">
+        <p class="font-semibold py-4 text-lg">Name</p>
+        <form method="get" action="{% url 'items' %}">
+            <input name="query" class=" w-full py-4 px-6 border rounded-xl" type="text" value="{{query}}" placeholder=" Search">
+            <button class="mt-2 py-4 px-8 text-lg bg-green-500 text-white rounded-lg"> Search </button>
+        </form>
+        <hr class="my-4">
+        <p class="font-semibold py-2 text-lg">Status</p>
+        <ul>
+            {% for category in categories %}
+                <li class="py-2 px-2  rounded-xl {% if category_id == category %} bg-gray-200 {% endif %}">
+                    <a href="{%url 'items'%}?query={{query}}&category={{category}}">{{category}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <hr class="my-4">
+        <p class="font-semibold py-2 text-lg">Clear filter</p>
+        <ul>
+            <li>
+                <a href="{% url 'items'%}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-lg text-white">clear</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-span-2 pl-6">
+        <div class="rounded-xl">
+           {%for item in items%}
+               <div class="w-full hover:bg-gray-100 mx-2 my-1 rounded-xl overflow-hidden hover:grow hover:shadow-lg">
+                   <a href="{% url 'detail' item.id %}">
+
+                       <div class="p-6 hover:bg-gray-100 rounded-b-xl">
+                           <p class=" w-1/4 text-center inline-block text-gray-500 text-xl">{{item.title}}</p>
+                           <p class=" pl-3 w-1/4 text-center inline-block text-gray-500">{{item.due_date}}</p>
+                           <p class="pl-4  w-1/4 text-center inline-block text-gray-500">{{item.status}}</p>
+                       </div>
+                   </a>
+               </div>
+           {% endfor%}
+
+       </div>
+    </div>
+</div>
+</div>
+{% endblock %}
